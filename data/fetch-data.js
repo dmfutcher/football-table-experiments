@@ -29,7 +29,7 @@ function cleanResults(rawResults) {
     return new Promise((resolve, reject) => {
         parse(rawResults)
             .then((rows) => {
-                const matches = rows.map((row) => {
+                const matches = rows.slice(1).map((row) => {
                     return {
                         homeTeam: row[2],
                         awayTeam: row[3],
