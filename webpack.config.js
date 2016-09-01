@@ -4,7 +4,12 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const loaders = [
     {
-        test: /\.js?$/,
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+    },
+    {
+        test: /\.jsx$/,
         loader: "babel-loader",
         exclude: /node_modules/,
         query: {
@@ -35,13 +40,16 @@ module.exports = [{
     ]
 },
 {
-    entry: "./client/index.js",
+    entry: "./client/index.jsx",
     output: {
         path: path.join(__dirname, "static"),
         filename: "bundle.js"
     },
     module: {
         loaders: loaders
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     plugins: [
         new CopyWebpackPlugin([
