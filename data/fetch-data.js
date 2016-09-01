@@ -49,7 +49,7 @@ const seasons = ["0809", "0910", "1011", "1112", "1213", "1314", "1415", "1516"]
 for (const season of seasons) {
     fetchLeagueResults("1516")
         .then((data) => {
-            fs.writeFileAsync(`data/pl_results_${season}.json`)
+            fs.writeFileAsync(`data/pl_results_${season}.json`, JSON.stringify(data))
                 .then(() => {
                     console.log(`Fetched results for ${season} season`);
                 })
