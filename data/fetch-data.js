@@ -1,7 +1,7 @@
-import request from 'superagent';
-import Promise from 'bluebird';
-import * as _parse from 'csv-parse';
-import fs from 'fs';
+import request from "superagent";
+import Promise from "bluebird";
+import * as _parse from "csv-parse";
+import fs from "fs";
 
 // TODO: Work out how to make csv-parse work with promisifyAll
 const parse = Promise.promisify(_parse.default);
