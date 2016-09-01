@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 const loaders = [
     {
         test: /\.js?$/,
@@ -14,15 +16,21 @@ const loaders = [
 ]
 
 module.exports = [{
-    entry: "./server/index.js",
+    entry: {
+        server: "./server/index.js",
+        fetch_data: "./data/fetch-data.js"
+    },
     target: "node",
     output: {
         path: __dirname,
-        filename: "server.js"
+        filename: "[name].js"
     },
     module: {
-        loaders: loaders
-    }
+        loaders: loaders,
+    },
+    plugins: [
+         new webpack.DefinePlugin({ "global.GENTLY": false })
+    ]
 },
 {
     entry: "./client/index.js",
