@@ -7,13 +7,16 @@ const loaders = [
         test: /\.js$/,
         loader: "babel-loader",
         exclude: /node_modules/,
+        query: {
+            presets: ["es2015", "stage-2"]
+        }
     },
     {
         test: /\.jsx$/,
         loader: "babel-loader",
         exclude: /node_modules/,
         query: {
-          presets: ["es2015", "react"]
+          presets: ["es2015", "react", "stage-2"]
         }
     },
     {

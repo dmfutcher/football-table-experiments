@@ -1,5 +1,14 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom";
-import LeagueTableApp from "./components/LeagueTableApp";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-ReactDOM.render(<LeagueTableApp />, document.getElementById("app-container"));
+import LeagueTableApp from "./components/LeagueTableApp";
+import { reducer, initialState } from "./reducers";
+
+const store = createStore(reducer, initialState);
+
+ReactDOM.render(<Provider store={store}>
+                    <LeagueTableApp />
+                </Provider>,
+                document.getElementById("app-container"));
