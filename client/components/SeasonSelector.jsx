@@ -11,6 +11,10 @@ class SeasonSelector extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
 
+    componentDidMount() {
+        this.props.selectSeason("1516");
+    }
+
     paddedYear(year) {
         if (year < 10) {
             return `0${year}`;
@@ -37,14 +41,13 @@ class SeasonSelector extends React.Component {
     }
 
     render() {
-        console.log('Selected season:' + this.props.selected);
-
         const choices = this.getSeasonChoices();
         const options = choices.map(({ display, value }) => {
             return <option value={value} key={value}>{display}</option>;
         });
 
         return <select onChange={this.onChange}
+                       value={this.props.selected || "1516"}
                        ref={(ref) => this.input = ref}>{options}</select>;
     }
 
