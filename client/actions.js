@@ -3,13 +3,13 @@ import { createAction } from "redux-actions";
 class Actions {
 
      constructor() {
-         this.types = {
-             selectSeason: "SELECT_SEASON"
+         this.actions = {
+             selectSeason: createAction("SELECT_SEASON", season => season)
          };
      }
 
      selectSeason(season) {
-         return createAction(this.types.selectSeason, season);
+         return (dispatch) => dispatch(this.actions.selectSeason(season));
      }
 
 }

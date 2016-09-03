@@ -1,14 +1,13 @@
-import { actions } from './actions';
+import { handleActions } from "redux-actions";
+
+import { actions } from "./actions";
 
 export const initialState = {
     selectedSeason: undefined
 };
 
-export function reducer(state, action) {
-    switch (action.type) {
-        case actions.types.selectSeason:
-            return { ...state, selectedSeason: season };
-        default:
-            return state;
+export const reducer = handleActions({
+    [actions.actions.selectSeason]: (state, action) => {
+        return { ...state, selectedSeason: action.payload };
     }
-}
+});

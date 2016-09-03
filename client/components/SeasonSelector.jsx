@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 
 import { actions } from "../actions";
 
@@ -31,7 +30,6 @@ class SeasonSelector extends React.Component {
             const display = `${startStr}/${finishStr}`;
             const value = `${startStr}${finishStr}`
 
-            console.log(JSON.stringify({display,value}))
             choices.push({ display, value });
         }
 
@@ -46,20 +44,12 @@ class SeasonSelector extends React.Component {
             return <option value={value} key={value}>{display}</option>;
         });
 
-        return <FormGroup controlId="selectSeason">
-                   <ControlLabel>Select season</ControlLabel>
-                   <FormControl componentClass="select"
-                                placeholder="select"
-                                ref={(ref) => this.input = ref.getDOMNode()}
-                                onChange={this.onChange}>
-                       {options}
-                   </FormControl>
-               </FormGroup>;
+        return <select onChange={this.onChange}
+                       ref={(ref) => this.input = ref}>{options}</select>;
     }
 
     onChange() {
-        //console.log(this.input.getDOMNode().value);
-        debugger;
+        this.props.selectSeason(this.input.value);
     }
 
 }
