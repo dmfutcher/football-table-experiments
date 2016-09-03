@@ -9,10 +9,11 @@ class SeasonSelector extends React.Component {
         super(props);
 
         this.onChange = this.onChange.bind(this);
+        this.selectionChanged = this.selectionChanged.bind(this);
     }
 
     componentDidMount() {
-        this.props.selectSeason("1516");
+        this.selectionChanged("1516");
     }
 
     paddedYear(year) {
@@ -52,7 +53,12 @@ class SeasonSelector extends React.Component {
     }
 
     onChange() {
-        this.props.selectSeason(this.input.value);
+        this.selectionChanged(this.input.value);
+    }
+
+    selectionChanged(season) {
+        this.props.selectSeason(season);
+        this.props.fetchResults(season);
     }
 
 }
@@ -65,7 +71,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        selectSeason: (season) => dispatch(actions.selectSeason(season))
+        selectSeason: (season) => dispatch(actions.selectSeason(season)),
+        fetchResults: (season) => dispatch(actions.fetchResults(season))
     };
 }
 

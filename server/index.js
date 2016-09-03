@@ -14,9 +14,10 @@ class FootballDataServer {
 
     handleResultsRequest(req, res) {
         const season = req.params.season;
-    
+
         fs.readFileAsync(`./data/pl_results_${season}.json`)
             .then((data) => {
+                res.header("Content-Type", "application/json")
                 res.send(data);
             })
             .catch((err) => {
