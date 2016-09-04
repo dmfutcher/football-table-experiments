@@ -1,23 +1,30 @@
 import React from "react";
 
 import SeasonSelector from "./SeasonSelector";
-import PointAllocationEditor from "./PointAllocationEditor";
+import BasicPointAllocationEditor from "./BasicPointAllocationEditor";
 import LeagueTable from "./LeagueTable";
+import Header from "./Header";
+
+import { Container, Box } from "./bulma";
 
 export default class LeagueTableApp extends React.Component {
 
     render() {
-        return (<div>
-                    <div id="controls">
-                        <SeasonSelector />
-                        <PointAllocationEditor />
+        return (<div><Header />
+                <Container id="primary-container">
+
+                    <div className="box tile is-ancestor">
+                        <div className="tile is-parent">
+                            <div className="tile is-child"><SeasonSelector /></div>
+                            <div className="tile is-child"><BasicPointAllocationEditor /></div>
+                        </div>
                     </div>
 
-                    <div id="league-table-container">
+                    <Box id="league-table-container">
                         <LeagueTable />
-                    </div>
+                    </Box>
 
-                </div>);
+                </Container></div>);
     }
 
 }

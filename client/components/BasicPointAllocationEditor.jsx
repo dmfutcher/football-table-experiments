@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 
 import BasicAllocator from "./BasicAllocator";
 
-class PointAllocationEditor extends React.Component {
+class BasicPointAllocationEditor extends React.Component {
 
     render() {
-        return <div id="point-allocation-editor">
+        return <div id="basic-point-allocation-editor">
+                   <p className="title is-5">Points for result:</p>
                    <div id="basic-allocators">
                        <BasicAllocator display="Win" paramName="win" />
                        <BasicAllocator display="Draw" paramName="draw" />
@@ -25,4 +26,4 @@ function mapDispatchToProps() {
     return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PointAllocationEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(BasicPointAllocationEditor);

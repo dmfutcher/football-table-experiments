@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import LeagueTableApp from "./components/LeagueTableApp";
 import { reducer, initialState } from "./reducers";
 
+import "./styles/index.scss";
+
 const store = createStore(reducer, initialState,
     compose(applyMiddleware(thunk),
             window.devToolsExtension ? window.devToolsExtension() : f => f)

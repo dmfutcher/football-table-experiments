@@ -50,7 +50,7 @@ class LeagueTable extends React.Component {
             return <span id="league-table-placeholder"></span>;
         }
 
-        return <Table rowHeight={40}
+        return <Table rowHeight={30}
                       rowsCount={table.length}
                       width={870}
                       maxHeight={1000}

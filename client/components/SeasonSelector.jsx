@@ -47,9 +47,13 @@ class SeasonSelector extends React.Component {
             return <option value={value} key={value}>{display}</option>;
         });
 
-        return <select onChange={this.onChange}
-                       value={this.props.selected || "1516"}
-                       ref={(ref) => this.input = ref}>{options}</select>;
+        return (<section className="is-primary">
+                    <p className="title is-5">Select season:</p>
+                    <select onChange={this.onChange}
+                            value={this.props.selected || "1516"}
+                            ref={(ref) => this.input = ref}>{options}
+                    </select>
+                </section>);
     }
 
     onChange() {

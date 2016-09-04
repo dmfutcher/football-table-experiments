@@ -1,0 +1,26 @@
+
+@import "~bulma";
+
+#basic-allocators {
+    display: table-row;
+}
+
+#primary-container {
+    padding-top: 25px;
+}
+
+.basic-allocator {
+
+    display: table-cell;
+    padding-left: 10px;
+
+    span {
+        display: table-cell;
+    }
+
+    input {
+        display: table-cell;
+        max-width: 60px;
+    }
+
+}
