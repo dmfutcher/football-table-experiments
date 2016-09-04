@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Mucking about with Premier League results data",
   "scripts": {
+    "build": "webpack",
+    "start": "node ./server.js",
+    "fetch-data": "node ./fetch_data.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,13 +35,12 @@
     "redux-actions": "^0.12.0",
     "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.2"
+    "webpack": "^2.1.0-beta.21"
   },
   "dependencies": {
     "bluebird": "^3.4.5",
     "csv-parse": "^1.1.7",
     "express": "^4.14.0",
-    "superagent": "^2.2.0",
-    "webpack": "^2.1.0-beta.21"
+    "superagent": "^2.2.0"
   }
 }
