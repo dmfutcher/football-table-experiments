@@ -7,7 +7,8 @@ class Actions {
          this.actions = {
              selectSeason: createAction("SELECT_SEASON", season => season),
              fetchResultsSuccess: createAction("FETCH_RESULTS_SUCCESS", results => results),
-             fetchResultsFailed: createAction("FETCH_RESULTS_FAILED", error => error)
+             fetchResultsFailed: createAction("FETCH_RESULTS_FAILED", error => error),
+             basicAllocationChange: createAction("BASIC_ALLOCATION_CHANGE", (param, points) => ({param, points}))
          };
      }
 
@@ -33,6 +34,12 @@ class Actions {
                         dispatch(this.actions.fetchResultsSuccess(res.body));
                     }
                 });
+         };
+     }
+
+     basicPointAllocationChange(paramName, value) {
+         return (dispatch) => {
+             dispatch(this.actions.basicAllocationChange(paramName, value));
          };
      }
 
