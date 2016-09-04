@@ -23,7 +23,6 @@ class Actions {
              request
                 .get(url)
                 .end((err, res) => {
-                    debugger;
                     if (err) {
                         dispatch(this.actions.fetchResultsFailed(err));
                     } else if (!res.body) {

@@ -33,8 +33,8 @@ function cleanResults(rawResults) {
                     return {
                         homeTeam: row[2],
                         awayTeam: row[3],
-                        homeGoals: row[4],
-                        awayGoals: row[5]
+                        homeGoals: parseInt(row[4]),
+                        awayGoals: parseInt(row[5])
                     };
                 })
 

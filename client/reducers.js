@@ -1,6 +1,7 @@
 import { handleActions } from "redux-actions";
 
 import { actions } from "./actions";
+import { calculateLeagueTable } from './league-table';
 
 export const initialState = {
     selectedSeason: undefined,
@@ -12,6 +13,7 @@ export const reducer = handleActions({
         return { ...state, selectedSeason: action.payload };
     },
     [actions.actions.fetchResultsSuccess]: (state, action) => {
-        return { ...state, seasonResults: action.payload };
+        const table = calculateLeagueTable(action.payload);
+        return { ...state, seasonResults: action.payload, table };
     }
 });
