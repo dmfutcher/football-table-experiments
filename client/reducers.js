@@ -21,12 +21,14 @@ export const reducer = handleActions({
         return { ...state, selectedSeason: action.payload };
     },
     [actions.actions.fetchResultsSuccess]: (state, action) => {
-        const table = calculateLeagueTable(action.payload);
+        const table = calculateLeagueTable(action.payload, state.pointsAllocations);
         return { ...state, seasonResults: action.payload, table };
     },
     [actions.actions.basicAllocationChange]: (state, action) => {
         const allocs = state.pointsAllocations;
         allocs.basic[action.payload.param] = action.payload.points;
-        return { ...state, pointsAllocations: allocs };
+
+        const table = calculateLeagueTable(state.seasonResults, allocs);
+        return { ...state, pointsAllocations: allocs, table };
     }
 });

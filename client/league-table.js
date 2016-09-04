@@ -13,7 +13,11 @@ function isValidMatch(match) {
     return (match.homeTeam && match.awayTeam && match.homeGoals != undefined && match.awayGoals != undefined)
 }
 
-function scoreMatch(match, homeTeam, awayTeam) {
+function scoreMatch(match, homeTeam, awayTeam, allocs) {
+    const ptsWin = allocs.basic.win;
+    const ptsDraw = allocs.basic.draw;
+    const ptsLose = allocs.basic.lose;
+
     if (homeTeam === undefined) {
         homeTeam = { ...emptyTeamResults, name: match.homeTeam };
     }
@@ -23,18 +27,20 @@ function scoreMatch(match, homeTeam, awayTeam) {
     }
 
     if (match.homeGoals > match.awayGoals) {
-        homeTeam.points += 3;
-        homeTeam.wins += 1;
-        awayTeam.losses += 1;
+        homeTeam.points += ptsWin;
+        awayTeam.points += ptsLose;
+        homeTeam.wins += ptsDraw;
+        awayTeam.losses += ptsDraw;
     } else if (match.homeGoals === match.awayGoals) {
-        homeTeam.points += 1;
-        awayTeam.points += 1;
-        homeTeam.draws += 1;
-        awayTeam.draws += 1;
+        homeTeam.points += ptsDraw;
+        awayTeam.points += ptsDraw;
+        homeTeam.draws += ptsDraw;
+        awayTeam.draws += ptsDraw;
     } else {
-        awayTeam.points += 3;
-        awayTeam.wins += 1;
-        homeTeam.losses += 1;
+        awayTeam.points += ptsWin;
+        awayTeam.wins += ptsDraw;
+        homeTeam.points += ptsLose;
+        homeTeam.losses += ptsDraw;
     }
 
     homeTeam.goalsFor += match.homeGoals;
@@ -57,7 +63,7 @@ function sortTable(table, sortKey="points") {
     });
 }
 
-export function calculateLeagueTable(results) {
+export function calculateLeagueTable(results, allocations) {
     const teams = {};
 
     for (const match of results) {
@@ -65,7 +71,7 @@ export function calculateLeagueTable(results) {
             continue;
         }
 
-        const { homeTeam, awayTeam } = scoreMatch(match,  teams[match.homeTeam],  teams[match.awayTeam]);
+        const { homeTeam, awayTeam } = scoreMatch(match, teams[match.homeTeam], teams[match.awayTeam], allocations);
         teams[match.homeTeam] = homeTeam;
         teams[match.awayTeam] = awayTeam;
     }
