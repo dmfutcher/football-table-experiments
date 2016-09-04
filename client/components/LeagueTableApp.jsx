@@ -1,5 +1,7 @@
 import React from "react";
-import SeasonSelector from './SeasonSelector';
+
+import SeasonSelector from "./SeasonSelector";
+import LeagueTable from "./LeagueTable";
 
 export default class LeagueTableApp extends React.Component {
 
@@ -9,6 +11,9 @@ export default class LeagueTableApp extends React.Component {
                         <SeasonSelector />
                     </div>
 
+                    <div id="league-table-container">
+                        <LeagueTable />
+                    </div>
 
                 </div>);
     }

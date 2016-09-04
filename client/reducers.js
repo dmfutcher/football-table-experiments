@@ -5,7 +5,8 @@ import { calculateLeagueTable } from './league-table';
 
 export const initialState = {
     selectedSeason: undefined,
-    seasonResults: undefined
+    seasonResults: undefined,
+    table: undefined
 };
 
 export const reducer = handleActions({

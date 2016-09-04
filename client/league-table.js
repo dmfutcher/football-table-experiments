@@ -1,4 +1,5 @@
 const emptyTeamResults = {
+    name: undefined,
     points: 0,
     wins: 0,
     draws: 0,
@@ -16,11 +17,11 @@ export function calculateLeagueTable(results) {
         let awayTeam = teams[match.awayTeam];
 
         if (homeTeam === undefined) {
-            homeTeam = { ...emptyTeamResults }
+            homeTeam = { ...emptyTeamResults, name: match.homeTeam };
         }
 
         if (awayTeam === undefined) {
-            awayTeam = { ...emptyTeamResults }
+            awayTeam = { ...emptyTeamResults, name: match.awayTeam };
         }
 
         if (match.homeGoals > match.awayGoals) {
@@ -47,9 +48,10 @@ export function calculateLeagueTable(results) {
         teams[match.awayTeam] = awayTeam;
     }
 
-    for (const team of teams) {
-        team.goalDifference = team.goalsFor - team.goalsAgainst;
+    let table = [];
+    for (const team of Object.keys(teams)) {
+        table.push(teams[team]);
     }
 
-    return teams;
+    return table;
 }
