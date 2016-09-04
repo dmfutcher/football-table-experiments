@@ -9,10 +9,18 @@ const emptyTeamResults = {
     goalDifference: 0
 };
 
+function isValidMatch(match) {
+    return (match.homeTeam && match.awayTeam && match.homeGoals != undefined && match.awayGoals != undefined)
+}
+
 export function calculateLeagueTable(results) {
     const teams = {};
 
     for (const match of results) {
+        if (!isValidMatch(match)) {
+            continue;
+        }
+
         let homeTeam = teams[match.homeTeam];
         let awayTeam = teams[match.awayTeam];
 
@@ -50,8 +58,20 @@ export function calculateLeagueTable(results) {
 
     let table = [];
     for (const team of Object.keys(teams)) {
+        teams[team].goalDifference = teams[team].goalsFor - teams[team].goalsAgainst;
         table.push(teams[team]);
     }
+
+    const sortKey = "points";
+    table.sort((a, b) => {
+        if (a[sortKey] < b[sortKey]) {
+            return 1;
+        } else if (a[sortKey] > b[sortKey]) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
 
     return table;
 }
