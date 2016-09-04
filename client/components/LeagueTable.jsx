@@ -10,6 +10,12 @@ const DataCell = ({rowIndex, data, col, ...props}) => (
     </Cell>
 );
 
+const PlacementCell = ({rowIndex}) => (
+    <Cell>
+        {rowIndex + 1}
+    </Cell>
+);
+
 class LeagueTable extends React.Component {
 
     render() {
@@ -20,9 +26,12 @@ class LeagueTable extends React.Component {
 
         return <Table rowHeight={40}
                       rowsCount={table.length}
-                      width={800}
+                      width={835}
                       maxHeight={1000}
                       headerHeight={50}>
+                  <Column header={<Cell>#</Cell>}
+                          cell={<PlacementCell />}
+                          width={35} />
                    <Column header={<Cell>Team</Cell>}
                            cell={<DataCell data={table} col={"name"} />}
                            width={275} />
