@@ -3,17 +3,19 @@ import { handleActions } from "redux-actions";
 import { actions } from "./actions";
 import { calculateLeagueTable } from './league-table';
 
+const defaultAllocation = {
+    basic: {
+        win: 3,
+        draw: 1,
+        lose: 0
+    }
+}
+
 export const initialState = {
     selectedSeason: undefined,
     seasonResults: undefined,
     table: undefined,
-    pointsAllocations: {
-        basic: {
-            win: 3,
-            draw: 1,
-            lose: 0
-        }
-    }
+    pointsAllocations: defaultAllocation
 };
 
 export const reducer = handleActions({
@@ -22,7 +24,9 @@ export const reducer = handleActions({
     },
     [actions.actions.fetchResultsSuccess]: (state, action) => {
         const table = calculateLeagueTable(action.payload, state.pointsAllocations);
-        return { ...state, seasonResults: action.payload, table };
+        const originalTable = calculateLeagueTable(action.payload, defaultAllocation);
+
+        return { ...state, seasonResults: action.payload, table, originalTable };
     },
     [actions.actions.basicAllocationChange]: (state, action) => {
         const allocs = state.pointsAllocations;

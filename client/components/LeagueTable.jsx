@@ -16,6 +16,32 @@ const PlacementCell = ({rowIndex}) => (
     </Cell>
 );
 
+function teamPosition(name, table) {
+    for (let i = 0; i < table.length; i++) {
+        if (table[i].name === name) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+const DeltaCell = ({rowIndex, data, orig, ...props}) => {
+    const origPos = teamPosition(data[rowIndex].name, orig);
+    const newPos = teamPosition(data[rowIndex].name, data);
+
+    let indicator = "";
+    if (origPos > newPos) {
+        indicator = "++";
+    } else if (origPos < newPos) {
+        indicator = "--";
+    }
+
+    return <Cell {...props}>
+               {indicator}
+           </Cell>;
+};
+
 class LeagueTable extends React.Component {
 
     render() {
@@ -26,7 +52,7 @@ class LeagueTable extends React.Component {
 
         return <Table rowHeight={40}
                       rowsCount={table.length}
-                      width={835}
+                      width={870}
                       maxHeight={1000}
                       headerHeight={50}>
                   <Column header={<Cell>#</Cell>}
@@ -56,6 +82,8 @@ class LeagueTable extends React.Component {
                    <Column header={<Cell>Pts</Cell>}
                            cell={<DataCell data={table} col={"points"} />}
                            width={75} />
+                   <Column cell={<DeltaCell data={table} orig={this.props.originalTable} />}
+                           width={35} />
                </Table>;
     }
 
@@ -63,7 +91,8 @@ class LeagueTable extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        leagueTable: state.table
+        leagueTable: state.table,
+        originalTable: state.originalTable
     };
 }
 
