@@ -13,6 +13,50 @@ function isValidMatch(match) {
     return (match.homeTeam && match.awayTeam && match.homeGoals != undefined && match.awayGoals != undefined)
 }
 
+function scoreMatch(match, homeTeam, awayTeam) {
+    if (homeTeam === undefined) {
+        homeTeam = { ...emptyTeamResults, name: match.homeTeam };
+    }
+
+    if (awayTeam === undefined) {
+        awayTeam = { ...emptyTeamResults, name: match.awayTeam };
+    }
+
+    if (match.homeGoals > match.awayGoals) {
+        homeTeam.points += 3;
+        homeTeam.wins += 1;
+        awayTeam.losses += 1;
+    } else if (match.homeGoals === match.awayGoals) {
+        homeTeam.points += 1;
+        awayTeam.points += 1;
+        homeTeam.draws += 1;
+        awayTeam.draws += 1;
+    } else {
+        awayTeam.points += 3;
+        awayTeam.wins += 1;
+        homeTeam.losses += 1;
+    }
+
+    homeTeam.goalsFor += match.homeGoals;
+    homeTeam.goalsAgainst += match.awayGoals;
+    awayTeam.goalsFor += match.awayGoals;
+    awayTeam.goalsAgainst += match.homeGoals;
+
+    return { homeTeam, awayTeam };
+}
+
+function sortTable(table, sortKey="points") {
+    table.sort((a, b) => {
+        if (a[sortKey] < b[sortKey]) {
+            return 1;
+        } else if (a[sortKey] > b[sortKey]) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+}
+
 export function calculateLeagueTable(results) {
     const teams = {};
 
@@ -21,37 +65,7 @@ export function calculateLeagueTable(results) {
             continue;
         }
 
-        let homeTeam = teams[match.homeTeam];
-        let awayTeam = teams[match.awayTeam];
-
-        if (homeTeam === undefined) {
-            homeTeam = { ...emptyTeamResults, name: match.homeTeam };
-        }
-
-        if (awayTeam === undefined) {
-            awayTeam = { ...emptyTeamResults, name: match.awayTeam };
-        }
-
-        if (match.homeGoals > match.awayGoals) {
-            homeTeam.points += 3;
-            homeTeam.wins += 1;
-            awayTeam.losses += 1;
-        } else if (match.homeGoals === match.awayGoals) {
-            homeTeam.points += 1;
-            awayTeam.points += 1;
-            homeTeam.draws += 1;
-            awayTeam.draws += 1;
-        } else {
-            awayTeam.points += 3;
-            awayTeam.wins += 1;
-            homeTeam.losses += 1;
-        }
-
-        homeTeam.goalsFor += match.homeGoals;
-        homeTeam.goalsAgainst += match.awayGoals;
-        awayTeam.goalsFor += match.awayGoals;
-        awayTeam.goalsAgainst += match.homeGoals;
-
+        const { homeTeam, awayTeam } = scoreMatch(match,  teams[match.homeTeam],  teams[match.awayTeam]);
         teams[match.homeTeam] = homeTeam;
         teams[match.awayTeam] = awayTeam;
     }
@@ -62,16 +76,6 @@ export function calculateLeagueTable(results) {
         table.push(teams[team]);
     }
 
-    const sortKey = "points";
-    table.sort((a, b) => {
-        if (a[sortKey] < b[sortKey]) {
-            return 1;
-        } else if (a[sortKey] > b[sortKey]) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });
-
+    sortTable(table);
     return table;
 }
